@@ -1,0 +1,60 @@
+/* 🎯 Huvudcontainer för dashboard */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #f4f4f4, #e8e8e8);
+    padding: 20px;
+    text-align: center;
+}
+
+/* 🏠 Titel och text */
+.dashboard-container h1 {
+    font-size: 32px;
+    color: #333;
+}
+
+.dashboard-container p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* 📊 Statistik-kort */
+.dashboard-cards {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.dashboard-card {
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 🛠️ Admin-sektion */
+.admin-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+}
+
+.admin-section h2 {
+    font-size: 24px;
+    color: #d32f2f;
+}
+
+.admin-section p {
+    font-size: 16px;
+    color: #444;
+}

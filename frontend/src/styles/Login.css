@@ -1,0 +1,83 @@
+/* 🌍 Återställ grundläggande stilar endast för login-sidan */
+.login-container * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+}
+
+/* 🎯 Centrerar inloggningsrutan exakt i mitten */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw; /* Täcker hela skärmen */
+    background: linear-gradient(135deg, #1c1c1c, #333);
+}
+
+/* 📦 Inloggningsrutan */
+.login-container .login-box {
+    width: 420px;
+    background: rgba(255, 255, 255, 1); /* 🔹 Tar bort grå skugga */
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 📸 Logotyp */
+.login-container .logo {
+    max-width: 100%;
+    height: auto;
+    max-height: 100px;
+    margin-bottom: 20px;
+    object-fit: contain;
+}
+
+/* 🔹 Titel (h2) för login-sidan */
+.login-container h2 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* 📝 Input-fält (endast i login-sidan) */
+.login-container input {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    background-color: white; /* 🔹 Fix: Tar bort den grå bakgrunden */
+    color: black;
+}
+
+/* 🔥 Tar bort grå bakgrund när man skriver */
+.login-container input:focus {
+    border-color: #d32f2f;
+    outline: none;
+    background-color: white !important;
+}
+
+/* 🏁 Knapp (endast i login-sidan) */
+.login-container button {
+    width: 100%;
+    padding: 14px;
+    background: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.login-container button:hover {
+    background: #b71c1c;
+}
