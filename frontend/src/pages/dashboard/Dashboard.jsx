@@ -1,5 +1,6 @@
 import { useAuth } from "../../context/authUtils";
 import "../../styles/Dashboard.css";
+import Sidebar from "../../components/Sidebar"; // 🔹 Importera Sidebar-komponenten
 
 function Dashboard() {
     const { user } = useAuth();
@@ -10,22 +11,41 @@ function Dashboard() {
 
     return (
         <div className="dashboard-container">
-            <h1>Välkommen till Dashboarden</h1>
-            <p>Här ser du en översikt över systemet.</p>
+            <Sidebar /> {/* 🔹 Sidebar visas här istället för <aside> */}
 
-            <div className="dashboard-cards">
-                <div className="dashboard-card">📋 Totalt antal jobb: 20</div>
-                <div className="dashboard-card">✅ Klara jobb: 12</div>
-                <div className="dashboard-card">🚧 Pågående jobb: 8</div>
-            </div>
-
-            {/* 🔹 Om användaren är admin, visa admin-specifik information */}
-            {user.role === "Admin" && (
-                <div className="admin-section">
-                    <h2>🔧 Adminfunktioner</h2>
-                    <p>Här kan du hantera användare och systeminställningar.</p>
+            <main className="dashboard-content">
+                <h1>Hem</h1>
+                <div className="dashboard-boxes">
+                    <div className="dashboard-box">
+                        <h2>Lackeringar</h2>
+                        <p>Antal: 20</p>
+                    </div>
+                    <div className="dashboard-box">
+                        <h2>Rekond</h2>
+                        <p>Antal: 15</p>
+                    </div>
+                    <div className="dashboard-box">
+                        <h2>Verkstad</h2>
+                        <p>Antal: 10</p>
+                    </div>
+                    <div className="dashboard-box">
+                        <h2>PWR</h2>
+                        <p>Antal: 5</p>
+                    </div>
+                    <div className="dashboard-box">
+                        <h2>Besiktning</h2>
+                        <p>Antal: 8</p>
+                    </div>
+                    <div className="dashboard-box">
+                        <h2>Körningar</h2>
+                        <p>Antal: 7</p>
+                    </div>
+                    <div className="dashboard-box">
+                        <h2>Åtgärder</h2>
+                        <p>Antal: 12</p>
+                    </div>
                 </div>
-            )}
+            </main>
         </div>
     );
 }

@@ -14,24 +14,20 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
-
+    
         try {
             const response = await fetch("http://localhost:5050/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
             });
-
+    
             const data = await response.json();
             if (response.ok) {
                 login(data.token, data.role); // 🔹 Spara token & roll via AuthContext
-
-                // 🔹 Direkt omdirigering
-                if (data.role === "Admin") {
-                    navigate("/admin");
-                } else {
-                    navigate("/dashboard");
-                }
+                
+                // 🔹 Oavsett roll, navigera till Dashboard
+                navigate("/dashboard");
             } else {
                 setError(data.error);
             }
@@ -40,6 +36,7 @@ function Login() {
             setError("Serverfel, försök igen senare.");
         }
     };
+    
 
     return (
         <div className="login-container">

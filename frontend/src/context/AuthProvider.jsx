@@ -65,12 +65,10 @@ const AuthProvider = ({ children }) => {
         setUser({ token, role });
         setLoading(false);
     
-        if (role === "Admin") {
-            navigate("/admin");
-        } else {
-            navigate("/dashboard");
-        }
+        // 🔹 Omdirigera ALLA användare till `/dashboard`
+        navigate("/dashboard");
     };
+    
     
 
     return (

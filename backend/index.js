@@ -6,6 +6,7 @@ const errorHandler = require("./middleware/errorHandler");
 
 // 🔹 Importera API-routes
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes"); // 🔹 Importera userRoutes
 
 const app = express();
 const PORT = process.env.PORT || 5050;
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // 🔹 Registrera API-routes
 app.use("/api/auth", authRoutes);
+app.use("/api", userRoutes); // 🔹 Lägg till denna rad!
 
 // 🔹 Testa att servern fungerar
 app.get("/", (req, res) => {

@@ -1,0 +1,86 @@
+/* 📌 Header-container för Admin & Jobb */
+.component-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    max-width: 1200px;
+    margin-bottom: 10px; /* 🔹 Ökar marginalen nedåt (flyttar ner allt lite) */
+    margin-top: 10px;
+    padding-top: 10px; /* 🔹 Extra padding uppifrån för balans */
+}
+
+/* 📌 Titel */
+.component-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* 📌 Flexbox för sökrutan och knappen */
+.component-actions {
+    display: flex;
+    gap: 15px;
+}
+
+/* 📌 Lägg till-knappen (Fixat: ingen klickeffekt längre) */
+.add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000; /* 🔹 Svart bakgrund */
+    color: white;
+    border: none;
+    border-radius: 8px; /* 🔹 Rundare hörn */
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 🔹 Lätt skugga */
+    transition: none; /* 🔹 Tar bort klickeffekten */
+}
+
+.add-button:hover {
+    background-color: #333;
+}
+
+/* 📌 Sökruta (Fixat: ingen klickeffekt längre) */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 25px; /* 🔹 Rundade hörn */
+    padding: 8px 15px;
+    width: 300px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05); /* 🔹 Lätt skugga */
+    transition: none; /* 🔹 Tar bort klickeffekten */
+}
+
+/* 📌 Input i sökrutan */
+.search-bar input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    flex: 1;
+    padding: 5px;
+    background: transparent;
+}
+
+/* 📌 Sök-ikon */
+.search-bar .search-icon {
+    color: #666;
+    font-size: 18px;
+    margin-left: 8px;
+}
+
+/* 🔹 Effekter vid fokus (endast skugga, ingen klickeffekt) */
+.search-bar input:focus + .search-icon {
+    color: #d32f2f;
+}
+
+.search-bar input:focus {
+    border-color: #d32f2f;
+    box-shadow: none; /* 🔹 Tar bort klickeffekten */
+}

@@ -1,0 +1,86 @@
+/* 📌 Huvudcontainer för sidor som använder tabellen */
+.page-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* 📌 Innehållet på sidan */
+.page-content {
+    flex-grow: 1;
+    padding: 2rem;
+    margin-left: 240px; /* 🔹 Lägger marginal från sidomenyn */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5f6fa;
+}
+
+/* 📌 Tabellcontainer */
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* 📊 Huvudtabellen */
+.data-table {
+    width: 100%; /* 🔹 Täcker hela bredden */
+    max-width: 1200px; /* 🔹 Justerad maxbredd */
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 📌 Rubriker i tabellen */
+.data-table thead {
+    background: #d32f2f; /* 🔴 Röd färg */
+    color: white;
+}
+
+.data-table th {
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* 📌 Tabellceller */
+.data-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    color: black;
+}
+
+/* 📌 Alternativ radfärg */
+.data-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* 📌 Hover-effekt */
+.data-table tbody tr:hover {
+    background-color: rgba(211, 47, 47, 0.1);
+}
+
+/* 📌 Tom rubrik för spacing */
+.data-table th:last-child {
+    width: 50px; /* 🔹 Håller kvar spacing där delete-knappen ska vara */
+}
+
+/* 📌 Responsiv anpassning */
+@media (max-width: 768px) {
+    .data-table {
+        width: 95%;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
