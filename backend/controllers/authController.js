@@ -1,33 +1,28 @@
-const db = require("../config/db");
+const authModel = require("../models/authModel");
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 
-exports.loginUser = (req, res) => {
+/**
+ * Hanterar användarinloggning och returnerar JWT-token vid korrekt autentisering
+ */
+exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
-    console.log("🔹 Inloggningsförsök med email:", email);
 
-    db.query("SELECT * FROM Anvandare WHERE email = ?", [email], (err, result) => {
-        if (err) {
-            console.error("❌ Databasfel:", err);
-            return res.status(500).json({ error: "Databasfel" });
-        }
+    if (!email || !password) {
+        return res.status(400).json({ error: "Alla fält måste fyllas i" });
+    }
 
-        if (result.length === 0) {
-            console.log("❌ Ingen användare hittades med denna email:", email);
+    try {
+        const user = await authModel.getUserByEmail(email);
+
+        if (!user) {
             return res.status(401).json({ error: "Felaktig e-post eller lösenord" });
         }
 
-        const user = result[0];
+        const isMatch = await authModel.comparePasswords(password, user.losenord);
 
-        // 🔹 Hasha lösenordet och jämför
-        const hashedInputPassword = crypto.createHash("sha256").update(password).digest("hex");
-
-        if (hashedInputPassword !== user.losenord) {
-            console.log("❌ Fel lösenord angivet!");
+        if (!isMatch) {
             return res.status(401).json({ error: "Felaktig e-post eller lösenord" });
         }
-
-        console.log(`✅ Användare har rollen: ${user.roll}`);
 
         const token = jwt.sign(
             { id: user.anvandare_id, role: user.roll },
@@ -35,6 +30,33 @@ exports.loginUser = (req, res) => {
             { expiresIn: "2h" }
         );
 
-        res.json({ token, role: user.roll });
+        res.json({
+            token,
+            role: user.roll,
+            anvandare_id: user.anvandare_id
+        });
+
+    } catch (err) {
+        console.error("Fel vid inloggning:", err);
+        res.status(500).json({ error: "Serverfel vid inloggning" });
+    }
+};
+
+/**
+ * Verifierar en JWT-token och returnerar användarinfo om token är giltig
+ */
+exports.verifyToken = (req, res) => {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+        return res.status(401).json({ valid: false, error: "Ingen token skickades" });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET || "hemlig_nyckel", (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ valid: false, error: "Ogiltig token" });
+        }
+
+        res.json({ valid: true, user: { role: decoded.role, id: decoded.id } });
     });
 };

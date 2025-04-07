@@ -1,86 +1,108 @@
-/* 📌 Huvudcontainer för sidor som använder tabellen */
+/* ============================================================================
+   Komponent: DataTable
+   Beskrivning: Styling för tabellsidor och själva tabellkomponenten
+============================================================================ */
+
+/* Sidlayout för tabellsidor */
 .page-container {
     display: flex;
     height: 100vh;
     width: 100vw;
-}
-
-/* 📌 Innehållet på sidan */
-.page-content {
+  }
+  
+  /* Huvudinnehåll – tabeller till höger om sidomenyn */
+  .page-content {
     flex-grow: 1;
     padding: 2rem;
-    margin-left: 240px; /* 🔹 Lägger marginal från sidomenyn */
+    margin-left: 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #f5f6fa;
-}
-
-/* 📌 Tabellcontainer */
-.table-container {
+  }
+  
+  /* Tabellcontainer som centrerar tabellen */
+  .table-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     margin-top: 20px;
-}
-
-/* 📊 Huvudtabellen */
-.data-table {
-    width: 100%; /* 🔹 Täcker hela bredden */
-    max-width: 1200px; /* 🔹 Justerad maxbredd */
+  }
+  
+  /* Grundstil för själva tabellen */
+  .data-table {
+    width: 100%;
+    max-width: 1200px;
     border-collapse: collapse;
     background: white;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* 📌 Rubriker i tabellen */
-.data-table thead {
-    background: #d32f2f; /* 🔴 Röd färg */
+  }
+  
+  /* Tabellhuvud (thead) */
+  .data-table thead {
+    background: #d32f2f;
     color: white;
-}
-
-.data-table th {
+  }
+  
+  /* Tabellrubriker (th) */
+  .data-table th {
     padding: 12px;
     text-align: left;
     font-size: 16px;
     font-weight: bold;
-}
-
-/* 📌 Tabellceller */
-.data-table td {
+  }
+  
+  /* Sista kolumnen – t.ex. knappar – mindre bredd */
+  .data-table th:last-child {
+    width: 50px;
+  }
+  
+  /* Tabellceller (td) */
+  .data-table td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
     font-size: 14px;
     color: black;
-}
-
-/* 📌 Alternativ radfärg */
-.data-table tbody tr:nth-child(even) {
+  }
+  
+  /* Alternerande bakgrund för jämna rader */
+  .data-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
-}
-
-/* 📌 Hover-effekt */
-.data-table tbody tr:hover {
+  }
+  
+  /* Hovereffekt vid muspekare över rad */
+  .data-table tbody tr:hover {
     background-color: rgba(211, 47, 47, 0.1);
-}
-
-/* 📌 Tom rubrik för spacing */
-.data-table th:last-child {
-    width: 50px; /* 🔹 Håller kvar spacing där delete-knappen ska vara */
-}
-
-/* 📌 Responsiv anpassning */
-@media (max-width: 768px) {
+  }
+  
+  /* Gör en rad klickbar */
+  .clickable-row {
+    cursor: pointer;
+  }
+  
+  /* Knappar inuti tabellcontainer */
+  .table-container .button {
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Responsiv anpassning för mindre skärmar */
+  @media (max-width: 768px) {
     .data-table {
-        width: 95%;
+      width: 95%;
     }
-
+  
     .data-table th,
     .data-table td {
-        padding: 8px;
-        font-size: 14px;
+      padding: 8px;
+      font-size: 14px;
     }
-}
+  }
+  

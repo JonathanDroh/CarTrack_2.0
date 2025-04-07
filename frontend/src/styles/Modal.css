@@ -1,0 +1,270 @@
+/* ============================================================================
+   Modal-komponenter
+   Beskrivning: Styling för modaler som används för redigering, visning, 
+   filuppladdning och bekräftelser
+============================================================================ */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+/* Grundstruktur för modalinnehåll */
+.modal-content,
+.edit-job-modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 750px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content:not(.edit-job-modal) {
+    max-width: 500px;
+}
+
+/* Rubriker i modaler */
+.modal-content h3,
+.edit-job-modal h3 {
+    margin-top: 0;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+/* Stängknapp */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.4rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+.close-button:hover {
+    color: #d32f2f;
+}
+.close-button.small {
+    font-size: 1.1rem;
+    top: 10px;
+    right: 10px;
+}
+
+/* Knapprad längst ner */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+/* Layout för redigeringsformulär */
+.edit-job-layout {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.edit-form-left,
+.edit-form-right {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Formulärfält */
+.job-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+.job-field label {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    color: #333;
+}
+.job-field input,
+.job-field select,
+.job-field textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+/* Rubrik och knappar i modalens header */
+.modal-header-with-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.modal-header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* Bildvisning */
+.image-view-modal {
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.modal-image-preview {
+    max-width: 100%;
+    max-height: 70vh;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    object-fit: contain;
+}
+
+/* PDF-visning */
+.pdf-preview-content {
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #1f2937;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+.pdf-preview-content h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #111827;
+}
+.pdf-preview-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.pdf-preview-row span:first-child {
+    color: #374151;
+    min-width: 180px;
+    text-align: left;
+}
+.pdf-preview-row span:last-child {
+    text-align: right;
+    flex: 1;
+}
+.pdf-download-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+/* Filuppladdning */
+input[type="file"] {
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Checkbox-grupper */
+.edit-checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 20px;
+    margin-top: 0.5rem;
+    color: #1e293b;
+    font-size: 1rem;
+}
+.edit-checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    line-height: 1.5;
+}
+.edit-checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+/* Lösenordsfält */
+.modal-content input[type="password"] {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 350px;
+    font-family: inherit;
+    margin-top: 10px;
+    transition: border-color 0.2s ease;
+}
+.modal-content input[type="password"]:focus {
+    border-color: #d32f2f;
+    outline: none;
+}
+
+/* Mobilanpassning */
+@media (max-width: 600px) {
+    .modal-content,
+    .edit-job-modal {
+        padding: 1.2rem;
+    }
+
+    .edit-checkbox-group {
+        grid-template-columns: 1fr;
+    }
+
+    .edit-job-layout {
+        flex-direction: column;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .modal-buttons button {
+        width: 100%;
+    }
+
+    .modal-header-with-button {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pdf-download-wrapper {
+        justify-content: center;
+    }
+}
+
+/* Animation för fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

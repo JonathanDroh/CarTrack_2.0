@@ -1,41 +1,41 @@
-/* 📌 Dashboard-layout */
+/* ============================================================================
+   Dashboard-layout
+   Visar översiktsrutor (boxar) med statistik och navigering direkt efter inloggning
+============================================================================ */
+
 .dashboard-container {
     display: flex;
     height: 100vh;
     width: 100vw;
-}
-
-/* 📌 Justera sidoinnehållet så att det börjar efter sidomenyn */
-.dashboard-content {
+  }
+  
+  .dashboard-content {
     flex-grow: 1;
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
     align-items: center;
-    background-color: #f5f6fa; /* Ljus bakgrund */
-    margin-left: 240px; /* 🔹 Justera beroende på sidomenyns bredd */
-}
-
-/* 📌 Titel på sidan */
-.dashboard-content h1 {
+    margin-left: 240px;
+  }
+  
+  .dashboard-content h1 {
     font-size: 2.5rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 1.5rem;
-}
-
-/* 📌 Dashboard-rutor */
-.dashboard-boxes {
+  }
+  
+  .dashboard-boxes {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsiv layout */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     width: 100%;
     max-width: 1200px;
     justify-content: center;
-}
-
-/* 📌 Individuella boxar */
-.dashboard-box {
+  }
+  
+  .dashboard-box {
     background: white;
     padding: 25px;
     border-radius: 15px;
@@ -45,43 +45,49 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 130px; /* Gör boxarna större */
+    min-height: 130px;
     justify-content: center;
-}
-
-/* 📌 Hover-effekt */
-.dashboard-box:hover {
+    cursor: default;
+  }
+  
+  .dashboard-box:hover {
     transform: scale(1.05);
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* 📌 Titlar och text i boxar */
-.dashboard-box h2 {
-    color: #1e293b; /* Mörk text */
+  }
+  
+  .dashboard-box h2 {
+    color: #1e293b;
     font-size: 18px;
     margin-bottom: 10px;
-}
-
-.dashboard-box p {
+    word-break: break-word;
+  }
+  
+  .dashboard-box p {
     font-size: 22px;
     font-weight: bold;
-    color: #d32f2f; /* Röd färg för att sticka ut */
-}
-
-/* 📌 Responsiv design */
-@media (max-width: 768px) {
+    color: #d32f2f;
+    word-break: break-word;
+  }
+  
+  /* Responsiv anpassning för mobil och mindre skärmar */
+  @media (max-width: 768px) {
     .dashboard-content {
-        padding: 1rem;
-        margin-left: 60px; /* 🔹 Anpassa för mindre skärmar */
+      padding: 1rem;
+      margin-left: 60px;
     }
-
+  
     .dashboard-boxes {
-        grid-template-columns: 1fr; /* Enkel kolumn på mindre skärmar */
-        gap: 15px;
+      grid-template-columns: 1fr;
+      gap: 15px;
     }
-
+  
     .dashboard-box {
-        padding: 20px;
-        min-height: 100px;
+      padding: 20px;
+      min-height: 100px;
     }
-}
+  
+    .dashboard-box h2 {
+      margin-bottom: 5px;
+    }
+  }
+  

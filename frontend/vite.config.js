@@ -1,7 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+// ============================================================================
+// Fil: vite.config.js
+// Beskrivning: Vite-konfiguration med React-plugin
+// ============================================================================
 
-// https://vite.dev/config/
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+// Standard Vite-konfiguration för React-projekt
 export default defineConfig({
   plugins: [react()],
-})
+});

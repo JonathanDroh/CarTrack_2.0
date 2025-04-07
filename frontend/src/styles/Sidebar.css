@@ -1,104 +1,149 @@
-/* 📌 Sidomenyn (sidebar) */
+/* ============================================================================
+   Komponent: Sidebar
+   Beskrivning: Stil för sidomenyn (vänstermenyn) som visas på alla sidor
+============================================================================ */
+
+/* Sidomenyns huvudcontainer */
 .sidebar {
     width: 240px;
-    height: 100vh; /* 🔹 Se till att sidomenyn täcker hela skärmen */
-    background-color: #1c1c1c; /* 🔹 Svart bakgrund */
+    height: 100vh;
+    background-color: #1c1c1c;
     color: white;
     position: fixed;
     top: 0;
     left: 0;
     display: flex;
     flex-direction: column;
-    padding: 0.5rem 0; /* 🔹 Minskar padding för att spara utrymme */
-}
-
-/* 📌 Logotyp */
-.sidebar .logo-sidebar {
+    padding: 0.5rem 0;
+    transition: width 0.3s ease;
+  }
+  
+  /* Logotypsektionen i toppen av menyn */
+  .sidebar .logo-sidebar {
     width: 100%;
-    padding: 0.5rem 0; /* 🔹 Minskar padding ovanför logotypen */
+    padding: 0.5rem 0;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.sidebar .logo-sidebar .logo {
-    width: 180px; /* 🔹 Minskar logotypens storlek något */
+  }
+  
+  .sidebar .logo-sidebar .logo {
+    width: 180px;
     height: auto;
-    margin-bottom: 0.5rem; /* 🔹 Minskar avstånd under logotypen */
-}
-
-/* 📌 Sidomenyns lista */
-.sidebar ul {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Navigationslistan (UL) */
+  .sidebar ul {
     list-style: none;
     padding: 0;
-    width: 100%;
     margin: 0;
-    flex-grow: 1; /* 🔹 Gör att listan tar upp utrymmet mellan logotypen och botten */
-}
-
-/* 📌 Länkar i sidomenyn */
-.sidebar ul li a {
+    width: 100%;
+    flex-grow: 1;
+  }
+  
+  /* Länkar i menyn */
+  .sidebar ul li a {
     display: flex;
     align-items: center;
-    padding: 0.5rem 1rem; /* 🔹 Minskar padding för att spara utrymme */
+    padding: 0.5rem 1rem;
     color: white;
     text-decoration: none;
     font-size: 1rem;
-    transition: all 0.2s ease-in-out;
-}
-
-/* 📌 Ikoner i menyn */
-.sidebar ul li a svg {
-    margin-right: 8px; /* 🔹 Minskar avstånd mellan ikon och text */
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+  
+  .sidebar ul li a svg {
+    margin-right: 8px;
     font-size: 1rem;
-}
-
-/* 📌 Hover-effekt */
-.sidebar ul li a:hover, 
-.sidebar ul li a.active {
-    background-color: #d32f2f; /* 🔹 Behåller röd hover-effekt */
+  }
+  
+  /* Hover- och aktiv-länk-effekt */
+  .sidebar ul li a:hover,
+  .sidebar ul li a.active {
+    background-color: #d32f2f;
     transform: translateX(5px);
-}
-
-/* 📌 Sektionstitlar */
-.sidebar .sidebar-title {
-    font-size: 0.85rem; /* 🔹 Gör sektionstitlar något mindre */
+  }
+  
+  /* Titlar mellan grupper i menyn */
+  .sidebar .sidebar-title {
+    font-size: 0.85rem;
     color: #ccc;
-    padding: 0.5rem 1rem; /* 🔹 Minskar padding */
+    padding: 0.5rem 1rem;
     width: 100%;
     text-align: left;
     background-color: rgba(255, 255, 255, 0.05);
-    margin-top: 5px; /* 🔹 Minskar avstånd mellan sektioner */
-}
-
-/* 📌 Justering av sista länken */
-.sidebar ul li:last-child {
-    margin-bottom: 0.5rem; /* 🔹 Minskar spacing i botten */
-}
-
-/* 📌 Responsiv design */
-@media (max-width: 768px) {
+    margin-top: 5px;
+  }
+  
+  /* Sista listobjektet (för ev. spacing) */
+  .sidebar ul li:last-child {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Logga ut-knappen längst ner */
+  .logout-container {
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Anpassning: Tablet */
+  @media (max-width: 1024px) and (min-width: 769px) {
     .sidebar {
-        width: 60px;
-        padding: 1rem 0;
+      width: 180px;
     }
-
+  
     .sidebar .logo-sidebar .logo {
-        width: 40px;
-        margin-bottom: 0.5rem;
+      width: 120px;
     }
-
+  
     .sidebar ul li a {
-        padding: 0.8rem;
-        justify-content: center;
+      font-size: 0.85rem;
     }
-
-    .sidebar ul li a span {
-        display: none;
-    }
-
+  
     .sidebar ul li a svg {
-        margin-right: 0;
-        font-size: 1.4rem;
+      font-size: 1rem;
     }
-}
+  }
+  
+  /* Anpassning: Mobil (smal meny) */
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 60px;
+      padding: 0.5rem 0;
+      align-items: center;
+    }
+  
+    .sidebar .logo-sidebar {
+      justify-content: center;
+    }
+  
+    .sidebar .logo-sidebar .logo {
+      width: 35px;
+      margin-bottom: 0.5rem;
+    }
+  
+    .sidebar ul li a {
+      padding: 0.8rem;
+      justify-content: center;
+    }
+  
+    .sidebar ul li a span {
+      display: none;
+    }
+  
+    .sidebar ul li a svg {
+      margin-right: 0;
+      font-size: 1.4rem;
+    }
+  
+    .sidebar .sidebar-title {
+      display: none;
+    }
+  
+    .logout-container {
+      display: flex;
+      justify-content: center;
+      padding: 0.5rem;
+    }
+  }
+  

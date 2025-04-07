@@ -1,36 +1,37 @@
+// Komponent: AuthProvider
+// Beskrivning: Context-provider för autentisering. Hanterar inloggning, utloggning och token-verifiering vid sidladdning.
+
 import React, { useState, useEffect, useCallback } from "react";
-import { AuthContext } from "./AuthContext"; 
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
+    // Loggar ut användaren, rensar sessionStorage och navigerar till startsidan
     const logoutUser = useCallback(() => {
-        console.log("🔴 Loggar ut användaren och rensar session...");
-        localStorage.removeItem("token");
-        localStorage.removeItem("role");
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("role");
+        sessionStorage.removeItem("user");
         setUser(null);
-        navigate("/", { replace: true }); // 🔹 Skicka användaren till login-sidan
+        navigate("/", { replace: true });
     }, [navigate]);
 
+    // Vid sidladdning: verifiera JWT-token om den finns
     useEffect(() => {
         const token = sessionStorage.getItem("token");
-        const role = sessionStorage.getItem("role");
-    
-        if (!token || !role) {
-            console.log("🔴 Ingen giltig token hittades. Loggar ut...");
+
+        if (!token) {
             logoutUser();
             setLoading(false);
             return;
         }
-    
-        console.log("🔹 Token hittad i sessionStorage. Verifierar...");
-    
+
         fetch("http://localhost:5050/api/auth/verify", {
             method: "POST",
-            headers: { 
+            headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             }
@@ -38,38 +39,35 @@ const AuthProvider = ({ children }) => {
         .then((res) => res.json())
         .then((data) => {
             if (data.valid) {
-                console.log("✅ Token är giltig. Användaren är inloggad:", { role, token });
-                setUser({ role, token });
+                setUser({ role: data.user.role, token, anvandare_id: data.user.id });
+                sessionStorage.setItem("user", JSON.stringify({ role: data.user.role, anvandare_id: data.user.id }));
             } else {
-                console.log("🔴 Token är ogiltig eller har gått ut. Loggar ut...");
                 logoutUser();
             }
         })
         .catch(() => {
-            console.log("🔴 Kunde inte verifiera token. Loggar ut...");
             logoutUser();
         })
         .finally(() => {
             setLoading(false);
         });
     }, [logoutUser]);
-    
 
-    const login = (token, role) => {
-        console.log("🔹 Loggar in användaren:", { role, token });
-    
-        // 🔹 Byt från localStorage till sessionStorage så att inloggning raderas vid webbläsarstängning
+    // Inloggningsfunktion: sparar token och användarinfo
+    const login = (token, role, anvandare_id) => {
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("role", role);
-    
-        setUser({ token, role });
+        sessionStorage.setItem("user", JSON.stringify({ role, anvandare_id }));
+
+        setUser({ token, role, anvandare_id });
         setLoading(false);
-    
-        // 🔹 Omdirigera ALLA användare till `/dashboard`
-        navigate("/dashboard");
+
+        if (role === "Admin") {
+            navigate("/admin");
+        } else {
+            navigate("/dashboard");
+        }
     };
-    
-    
 
     return (
         <AuthContext.Provider value={{ user, login, logoutUser, loading }}>

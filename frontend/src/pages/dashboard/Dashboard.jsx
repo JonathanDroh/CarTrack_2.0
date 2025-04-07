@@ -1,53 +1,53 @@
-import { useAuth } from "../../context/authUtils";
+// Komponent: Dashboard
+// Beskrivning: Startsida som visar statistik (aktiva och skickade jobb) för alla jobbkategorier.
+
+import { useEffect, useState, useMemo } from "react";
+import Sidebar from "../../components/layout/Sidebar";
 import "../../styles/Dashboard.css";
-import Sidebar from "../../components/Sidebar"; // 🔹 Importera Sidebar-komponenten
 
 function Dashboard() {
-    const { user } = useAuth();
+  const [stats, setStats] = useState({});
 
-    if (!user) {
-        return <h1>Laddar...</h1>;
-    }
+  const sections = useMemo(() => [
+    { name: "Lackering", key: "lackering" },
+    { name: "Rekond", key: "rekond" },
+    { name: "Verkstad", key: "verkstad" },
+    { name: "PWR", key: "pwr" },
+    { name: "Besiktning", key: "besiktning" },
+    { name: "Körningar", key: "korning" },
+    { name: "Åtgärder", key: "atgard" }
+  ], []);
 
-    return (
-        <div className="dashboard-container">
-            <Sidebar /> {/* 🔹 Sidebar visas här istället för <aside> */}
+  useEffect(() => {
+    sections.forEach((section) => {
+      fetch(`http://localhost:5050/api/${section.key}/stats`)
+        .then((res) => res.json())
+        .then((data) => {
+          setStats((prev) => ({ ...prev, [section.key]: data }));
+        });
+    });
+  }, [sections]);
 
-            <main className="dashboard-content">
-                <h1>Hem</h1>
-                <div className="dashboard-boxes">
-                    <div className="dashboard-box">
-                        <h2>Lackeringar</h2>
-                        <p>Antal: 20</p>
-                    </div>
-                    <div className="dashboard-box">
-                        <h2>Rekond</h2>
-                        <p>Antal: 15</p>
-                    </div>
-                    <div className="dashboard-box">
-                        <h2>Verkstad</h2>
-                        <p>Antal: 10</p>
-                    </div>
-                    <div className="dashboard-box">
-                        <h2>PWR</h2>
-                        <p>Antal: 5</p>
-                    </div>
-                    <div className="dashboard-box">
-                        <h2>Besiktning</h2>
-                        <p>Antal: 8</p>
-                    </div>
-                    <div className="dashboard-box">
-                        <h2>Körningar</h2>
-                        <p>Antal: 7</p>
-                    </div>
-                    <div className="dashboard-box">
-                        <h2>Åtgärder</h2>
-                        <p>Antal: 12</p>
-                    </div>
-                </div>
-            </main>
+  return (
+    <div className="dashboard-container">
+      <Sidebar />
+      <main className="dashboard-content">
+        <h1>Hem</h1>
+        <div className="dashboard-boxes">
+          {sections.map((section, index) => {
+            const data = stats[section.key] || {};
+            return (
+              <div key={index} className="dashboard-box">
+                <h2>{section.name}</h2>
+                <p>Aktiva: {data.aktiva ?? "-"}</p>
+                <p>Skickade: {data.skickade ?? "-"}</p>
+              </div>
+            );
+          })}
         </div>
-    );
+      </main>
+    </div>
+  );
 }
 
 export default Dashboard;

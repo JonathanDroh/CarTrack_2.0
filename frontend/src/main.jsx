@@ -1,13 +1,16 @@
+// Root-fil: index.jsx
+// Beskrivning: Initierar React-appen med routing och Auth-provider.
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import AuthProvider from "./context/AuthProvider"; // 🔹 Importera AuthProvider
+import AuthProvider from "./context/AuthProvider";
 import App from "./App";
-import "./index.css"; // 🔹 Global CSS
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <BrowserRouter> {/* 🔹 Endast en Router här! */}
+        <BrowserRouter>
             <AuthProvider>
                 <App />
             </AuthProvider>

@@ -1,4 +1,6 @@
+// Context: AuthContext
+// Beskrivning: Skapar en global context för autentisering och användarinfo.
+
 import { createContext } from "react";
 
-// 🔹 Skapa AuthContext
 export const AuthContext = createContext();

@@ -1,48 +1,64 @@
+// Sida: AdminSettings
+// Beskrivning: Adminpanel för att hantera användare. Visar användarlista med möjlighet att lägga till, återställa lösenord och ta bort användare.
+
 import { useEffect, useState } from "react";
-import Sidebar from "../../components/Sidebar";
-import DataTable from "../../components/DataTable";
-import AddButton from "../../components/AddButton";
-import DeleteButton from "../../components/DeleteButton";
-import SearchBar from "../../components/SearchBar";
-import ResetPasswordModal from "../../components/ResetPasswordModal";
-import PasswordResetButton from "../../components/PasswordResetButton";
-import "../../styles/Table.css"; 
-import "../../styles/Components.css"; 
+import { useNavigate } from "react-router-dom";
+import Sidebar from "../../components/layout/Sidebar";
+import Header from "../../components/layout/Header";
+import DataTable from "../../components/tables/DataTable";
+import DeleteButton from "../../components/buttons/DeleteButton";
+import ResetPasswordModal from "../../components/modals/ResetPasswordModal";
+import ConfirmDeleteModal from "../../components/modals/ConfirmDeleteModal";
+import PasswordResetButton from "../../components/buttons/PasswordResetButton";
+import "../../styles/Table.css";
+import "../../styles/Components.css";
 
 function AdminSettings() {
     const [users, setUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedUser, setSelectedUser] = useState(null);
-    const [showModal, setShowModal] = useState(false);
+    const [showResetModal, setShowResetModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const navigate = useNavigate();
 
+    // Hämta alla användare vid sidladdning
     useEffect(() => {
         fetch("http://localhost:5050/api/users")
             .then((res) => res.json())
             .then((data) => setUsers(data))
-            .catch((err) => console.error("❌ Fel vid hämtning av användare:", err));
+            .catch((err) => console.error("Fel vid hämtning av användare:", err));
     }, []);
 
     const filteredUsers = users.filter((user) =>
-        user.namn.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.roll.toLowerCase().includes(searchQuery.toLowerCase())
+        user.namn.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const handleDelete = (email) => {
-        fetch(`http://localhost:5050/api/users/${email}`, { method: "DELETE" })
-            .then((res) => {
-                if (res.ok) {
-                    setUsers(users.filter(user => user.email !== email));
-                } else {
-                    console.error("❌ Fel vid radering av användare");
-                }
-            })
-            .catch((err) => console.error("❌ Serverfel vid radering:", err));
+    const handleResetPassword = (user) => {
+        setSelectedUser(user);
+        setShowResetModal(true);
     };
 
-    const handleResetPassword = (email) => {
-        setSelectedUser(email);
-        setShowModal(true);
+    const handleDeleteClick = (user) => {
+        setSelectedUser(user);
+        setShowDeleteModal(true);
+    };
+
+    const handleConfirmDelete = () => {
+        if (!selectedUser) return;
+
+        fetch(`http://localhost:5050/api/users/${selectedUser.email}`, {
+            method: "DELETE"
+        })
+            .then((res) => {
+                if (res.ok) {
+                    setUsers(users.filter(user => user.email !== selectedUser.email));
+                    setShowDeleteModal(false);
+                    setSelectedUser(null);
+                } else {
+                    console.error("Fel vid radering av användare");
+                }
+            })
+            .catch((err) => console.error("Serverfel vid radering:", err));
     };
 
     return (
@@ -50,29 +66,29 @@ function AdminSettings() {
             <Sidebar />
 
             <main className="page-content">
-                <div className="component-header">
-                    <h1>Admin</h1>
-                    <div className="component-actions">
-                        <SearchBar value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-                        <AddButton onClick={() => console.log("Lägg till anställd")} />
-                    </div>
-                </div>
+                <Header
+                    title="Admin"
+                    showAddButton={true}
+                    onSearch={setSearchQuery}
+                    searchValue={searchQuery}
+                    onAdd={() => navigate("/add-employee")}
+                />
 
                 <div className="table-container">
-                    <DataTable 
+                    <DataTable
                         columns={["Namn", "Email", "Lösenord", "Roll"]}
                         data={filteredUsers}
                         actions={[
                             ({ rowData }) => (
-                                <DeleteButton onClick={() => handleDelete(rowData.email)} />
+                                <DeleteButton onClick={() => handleDeleteClick(rowData)} />
                             )
                         ]}
                         renderCell={(column, rowData) => {
                             if (column === "Lösenord") {
                                 return (
-                                    <PasswordResetButton 
-                                        userEmail={rowData.email} 
-                                        onReset={handleResetPassword} 
+                                    <PasswordResetButton
+                                        user={rowData}
+                                        onReset={() => handleResetPassword(rowData)}
                                     />
                                 );
                             }
@@ -81,11 +97,20 @@ function AdminSettings() {
                     />
                 </div>
 
-                {/* 🔹 Modal för lösenordsåterställning */}
-                {showModal && (
-                    <ResetPasswordModal 
-                        userEmail={selectedUser} 
-                        onClose={() => setShowModal(false)} 
+                {showResetModal && selectedUser && (
+                    <ResetPasswordModal
+                        userEmail={selectedUser.email}
+                        onClose={() => setShowResetModal(false)}
+                        onSave={() => setShowResetModal(false)}
+                    />
+                )}
+
+                {showDeleteModal && (
+                    <ConfirmDeleteModal
+                        userEmail={selectedUser?.email}
+                        userName={selectedUser?.namn}
+                        onClose={() => setShowDeleteModal(false)}
+                        onConfirm={handleConfirmDelete}
                     />
                 )}
             </main>
