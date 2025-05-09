@@ -1,4 +1,4 @@
-const LackeringModel = require("../models/LackeringModel");
+const LackeringModel = require("../models/lackeringModel");
 
 /**
  * Hämta alla lackeringar

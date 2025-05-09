@@ -39,7 +39,7 @@ function CreateComponent({ title, fields, onSubmit, enableImageUpload = false, b
   };
 
   const handleImageSave = (formDataImage) => {
-    fetch("http://localhost:5050/api/lackering/upload-temp", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/lackering/upload-temp`, {
       method: "POST",
       body: formDataImage,
     })
