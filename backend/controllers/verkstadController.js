@@ -1,4 +1,4 @@
-const VerkstadModel = require("../models/VerkstadModel");
+const VerkstadModel = require("../models/verkstadModel");
 
 /**
  * Hämta alla aktiva verkstadsjobb
