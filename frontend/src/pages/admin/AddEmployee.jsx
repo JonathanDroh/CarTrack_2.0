@@ -52,6 +52,7 @@ function AddEmployee() {
                     title="Lägg till anställd" 
                     fields={fields} 
                     onSubmit={handleFormSubmit} 
+                    backTo="/admin-settings"
                 />
             </main>
         </div>

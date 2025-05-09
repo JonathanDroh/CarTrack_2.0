@@ -49,6 +49,7 @@ function AddBesiktning() {
           fields={besiktningFields}
           onSubmit={handleFormSubmit}
           enableImageUpload={false}
+          backTo="/besiktning"
         />
       </main>
     </div>

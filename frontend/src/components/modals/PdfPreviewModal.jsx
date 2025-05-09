@@ -7,7 +7,7 @@ import "../../styles/Modal.css";
 import PdfButton from "../buttons/PdfButton";
 import { FaTimes } from "react-icons/fa";
 
-function PdfPreviewModal({ jobData, onClose, fields = [] }) {
+function PdfPreviewModal({ jobData, onClose, fields = [], jobType = "" }) {
   // Skapar och laddar ner PDF av förhandsvisningen
   const handleDownload = async () => {
     const input = document.getElementById("pdf-content");
@@ -24,7 +24,7 @@ function PdfPreviewModal({ jobData, onClose, fields = [] }) {
     const height = (canvas.height * width) / canvas.width;
 
     pdf.addImage(imgData, "PNG", 0, 0, width, height);
-    pdf.save(`arbetsorder-${jobData?.regnr || "fil"}.pdf`);
+    pdf.save(`arbetsorder-${jobType.toLowerCase()}-${jobData?.regnr || "fil"}.pdf`);
   };
 
   return (
@@ -39,7 +39,7 @@ function PdfPreviewModal({ jobData, onClose, fields = [] }) {
         </button>
 
         <div id="pdf-content" className="pdf-preview-content">
-          <h3>Arbetsorder</h3>
+          <h3>Arbetsorder {jobType}</h3>
           {fields.map((field, index) => (
             <div key={index} className="pdf-preview-row">
               <span>{field.label}:</span>

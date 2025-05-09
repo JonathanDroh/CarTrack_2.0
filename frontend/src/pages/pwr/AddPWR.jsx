@@ -49,6 +49,7 @@ function AddPWR() {
           fields={pwrFields}
           onSubmit={handleFormSubmit}
           enableImageUpload={true}
+          backTo="/pwr"
         />
       </main>
     </div>

@@ -1,5 +1,4 @@
 const db = require("../config/db");
-const bcrypt = require("bcryptjs");
 
 class UserModel {
   /**
@@ -27,11 +26,10 @@ class UserModel {
   }
 
   /**
-   * Uppdatera lösenord för en användare
+   * Uppdatera lösenord för en användare (lösenord redan hashat i controller)
    */
-  static async updatePassword(email, newPassword) {
+  static async updatePassword(email, hashedPassword) {
     try {
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
       const sql = "UPDATE Anvandare SET losenord = ? WHERE email = ?";
       const [result] = await db.promise().query(sql, [hashedPassword, email]);
       return result.affectedRows > 0;
@@ -42,10 +40,9 @@ class UserModel {
   }
 
   /**
-   * Lägg till en ny användare
+   * Lägg till en ny användare (lösenord redan hashat i controller)
    */
-  static async addUser(namn, email, losenord, roll) {
-    const hashedPassword = await bcrypt.hash(losenord, 10);
+  static async addUser(namn, email, hashedPassword, roll) {
     const sql = `
       INSERT INTO Anvandare (namn, email, losenord, roll)
       VALUES (?, ?, ?, ?)

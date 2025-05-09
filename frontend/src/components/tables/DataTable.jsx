@@ -1,7 +1,5 @@
 // Komponent: DataTable
 // Beskrivning: Generisk tabellkomponent som renderar kolumner, data och eventuella åtgärdsknappar.
-// Kolumnen "Skickad" anpassas till "Påbörjad" på PWR- och Åtgärd-sidorna.
-// Formatterar datum och anpassar nycklar för olika kolumnrubriker.
 
 import React from "react";
 import { formatDate } from "../../../utils/dateUtils";
@@ -33,7 +31,7 @@ function DataTable({ columns = [], data = [], actions = [], renderCell, onRowCli
               {columns.map((col, colIndex) => {
                 let content;
 
-                // Använd renderCell om den är definierad
+                // Anpassad rendering om renderCell finns
                 if (renderCell) {
                   const result = renderCell(col, row);
                   if (result !== undefined && result !== null) {
@@ -41,11 +39,11 @@ function DataTable({ columns = [], data = [], actions = [], renderCell, onRowCli
                   }
                 }
 
-                // Standardrendering om renderCell inte returnerade något
+                // Standardrendering
                 if (content === undefined) {
                   let key = col.toLowerCase().replace(/ /g, "_");
 
-                  // Mappning av specialfält
+                  // Specialmappning för vissa fält
                   if (col === "Sista Besiktningsdatum") key = "sista_bes_datum";
                   if (col === "Sista Datum") key = "sista_datum";
                   if (col === "Planerat datum") key = "planerat_datum";
@@ -57,7 +55,7 @@ function DataTable({ columns = [], data = [], actions = [], renderCell, onRowCli
                   if (col === "Skickad") value = formatDate(row.datum_s);
                   if (col === "Färdig") value = formatDate(row.datum_t);
 
-                  // Formattera ISO-datum
+                  // Format ISO-datum
                   if (
                     (col === "Sista Datum" ||
                       col === "Sista Besiktningsdatum" ||

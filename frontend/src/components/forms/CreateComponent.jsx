@@ -1,6 +1,6 @@
 // Komponent: CreateComponent
-// Beskrivning: Återanvändbar komponent för att skapa nya jobb (Lackering, Rekond, etc).
-// Dynamiskt fälthantering, stöd för bilduppladdning och datumvalidering. Använder prop: `fields`.
+// Beskrivning: Återanvändbar komponent för att skapa nya jobb eller användare.
+// Hanterar dynamiska fält och stödjer bilduppladdning. Integrerar även med Dropdown-komponent.
 
 import React, { useState } from "react";
 import SaveButton from "../buttons/SaveButton";
@@ -15,16 +15,14 @@ import DateInput from "../inputs/DateInput";
 import BackButton from "../buttons/BackButton";
 import "../../styles/Create.css";
 
-function CreateComponent({ title, fields, onSubmit, enableImageUpload = false }) {
+function CreateComponent({ title, fields, onSubmit, enableImageUpload = false, backTo }) {
   const [formData, setFormData] = useState({});
   const [showImageModal, setShowImageModal] = useState(false);
   const [showImagePreview, setShowImagePreview] = useState(false);
 
-  // Hantera inmatningsförändringar
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
-    // Validera datumformat om input-typ är "date"
     if (type === "date" && value && !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
       return;
     }
@@ -35,13 +33,11 @@ function CreateComponent({ title, fields, onSubmit, enableImageUpload = false })
     }));
   };
 
-  // Skicka formuläret
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
   };
 
-  // Hantera bilduppladdning via modal
   const handleImageSave = (formDataImage) => {
     fetch("http://localhost:5050/api/lackering/upload-temp", {
       method: "POST",
@@ -62,17 +58,19 @@ function CreateComponent({ title, fields, onSubmit, enableImageUpload = false })
   return (
     <div className="create-page">
       <div className="create-container">
-        <div className={enableImageUpload ? "modal-header-with-button" : "centered-header"}>
+        <div className="modal-header-with-button">
           <h2 className="create-header">{title}</h2>
-          {enableImageUpload && (
-            <div style={{ display: "flex", gap: "10px" }}>
-              <AddImageButton onClick={() => setShowImageModal(true)} />
-              {formData.bild_url && (
-                <ViewImageButton onClick={() => setShowImagePreview(true)} />
-              )}
-              <BackButton to="/lackering" />
-            </div>
-          )}
+          <div style={{ display: "flex", gap: "10px" }}>
+            {enableImageUpload && (
+              <>
+                <AddImageButton onClick={() => setShowImageModal(true)} />
+                {formData.bild_url && (
+                  <ViewImageButton onClick={() => setShowImagePreview(true)} />
+                )}
+              </>
+            )}
+            {backTo && <BackButton to={backTo} />}
+          </div>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -80,9 +78,19 @@ function CreateComponent({ title, fields, onSubmit, enableImageUpload = false })
             <div key={index} className="create-group">
               <label>{field.label}</label>
               {field.type === "select" ? (
-                <Dropdown name={field.name} options={field.options} onChange={handleChange} />
+                <Dropdown
+                  name={field.name}
+                  options={field.options}
+                  selected={formData[field.name] || ""}
+                  onChange={handleChange}
+                  variant="form"
+                />
               ) : field.type === "checkboxGroup" ? (
-                <CheckboxGroup name={field.name} onChange={handleChange} className="create-checkbox-group" />
+                <CheckboxGroup
+                  name={field.name}
+                  onChange={handleChange}
+                  className="create-checkbox-group"
+                />
               ) : field.type === "date" ? (
                 <DateInput
                   name={field.name}
@@ -116,11 +124,17 @@ function CreateComponent({ title, fields, onSubmit, enableImageUpload = false })
         </form>
 
         {enableImageUpload && showImageModal && (
-          <ImageUploadModal onClose={() => setShowImageModal(false)} onSave={handleImageSave} />
+          <ImageUploadModal
+            onClose={() => setShowImageModal(false)}
+            onSave={handleImageSave}
+          />
         )}
 
         {enableImageUpload && showImagePreview && formData.bild_url && (
-          <ViewImageModal imageUrl={formData.bild_url} onClose={() => setShowImagePreview(false)} />
+          <ViewImageModal
+            imageUrl={formData.bild_url}
+            onClose={() => setShowImagePreview(false)}
+          />
         )}
       </div>
     </div>

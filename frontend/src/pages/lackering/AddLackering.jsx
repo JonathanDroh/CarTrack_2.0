@@ -50,6 +50,7 @@ function AddLackering() {
                     fields={lackeringFields}
                     onSubmit={handleFormSubmit}
                     enableImageUpload={true}
+                    backTo="/lackering"
                 />
             </main>
         </div>

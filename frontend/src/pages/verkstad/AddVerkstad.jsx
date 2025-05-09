@@ -50,6 +50,7 @@ function AddVerkstad() {
           fields={verkstadFields}
           onSubmit={handleFormSubmit}
           enableImageUpload={true}
+          backTo="/verkstad"
         />
       </main>
     </div>

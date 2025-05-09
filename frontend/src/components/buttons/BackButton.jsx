@@ -1,18 +1,18 @@
 // Komponent: BackButton
-// Beskrivning: En återgångsknapp som navigerar till en angiven route via React Router.
+// Beskrivning: En återgångsknapp som navigerar tillbaka till föregående sida med React Router.
 
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import "../../styles/Components.css";
 
-function BackButton({ to }) {
-    const navigate = useNavigate();
+function BackButton() {
+  const navigate = useNavigate();
 
-    return (
-        <button className="button-base button-black" onClick={() => navigate(to)}>
-            <FaArrowLeft className="back-icon" /> Tillbaka
-        </button>
-    );
+  return (
+    <button className="button-base button-black" onClick={() => navigate(-1)}>
+      <FaArrowLeft className="back-icon" /> Tillbaka
+    </button>
+  );
 }
 
 export default BackButton;

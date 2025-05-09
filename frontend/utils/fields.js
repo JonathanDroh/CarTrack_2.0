@@ -63,3 +63,17 @@ export const lackeringFields = [
     { name: "sista_datum", label: "Sista Datum", type: "date", placeholder: "Ange datum" }
   ];
   
+  export const kundregisterFields = [
+    { name: "k_regnmr", label: "K.Regnr", type: "text" },
+    { name: "i_regnmr", label: "I.Regnr", type: "text" },
+    { name: "telefonnummer", label: "Telefonnummer", type: "text" },
+    { name: "mailadress", label: "Mailadress", type: "text" },
+    { name: "kommentar", label: "Kommentar", type: "textarea" },
+    { name: "anteckning", label: "Anteckning", type: "textarea" },
+    { name: "bud", label: "Bud", type: "text" },
+    { name: "onskat_pris", label: "Önskat pris", type: "text" },
+    { name: "inbytespris", label: "Inbytespris", type: "text" },
+    { name: "trygg_inbytespris", label: "Trygg Inbytespris", type: "text" },
+  ];
+  
+  

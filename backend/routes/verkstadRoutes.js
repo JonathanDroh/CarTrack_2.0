@@ -4,10 +4,16 @@ const VerkstadController = require("../controllers/verkstadController");
 const uploadMiddleware = require("../middleware/uploadMiddleware");
 
 // ==========================
+// Verkstad – Historik och statistik
+// ==========================
+router.get("/history", VerkstadController.getCompletedVerkstad);
+router.get("/stats", VerkstadController.getStats);
+
+// ==========================
 // Verkstad – CRUD-routes
 // ==========================
 router.get("/", VerkstadController.getAllVerkstad);
-router.get("/verkstad/:id", VerkstadController.getVerkstadById);
+router.get("/:id", VerkstadController.getVerkstadById); // <-- justerad
 router.post("/add", VerkstadController.addVerkstad);
 router.patch("/:id", VerkstadController.updateVerkstad);
 router.delete("/:id", VerkstadController.deleteVerkstad);
@@ -23,11 +29,5 @@ router.patch("/complete/:id", VerkstadController.markAsCompleted);
 // ==========================
 router.post("/upload-temp", uploadMiddleware.single("image"), VerkstadController.uploadTempImage);
 router.post("/:id/upload", uploadMiddleware.single("image"), VerkstadController.uploadImage);
-
-// ==========================
-// Verkstad – Historik och statistik
-// ==========================
-router.get("/history", VerkstadController.getCompletedVerkstad);
-router.get("/stats", VerkstadController.getStats);
 
 module.exports = router;

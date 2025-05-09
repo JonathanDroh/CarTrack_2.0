@@ -1,15 +1,34 @@
 // Komponent: Dropdown
-// Beskrivning: Standard dropdown-komponent för formulärval. Kräver att användaren gör ett aktivt val.
+// Beskrivning: Används för både formulär (variant="form") och filtrering (variant="filter").
 
-function Dropdown({ name, options, onChange }) {
+function Dropdown({ name, options, onChange, selected, placeholder = "Välj", variant = "form" }) {
+    const handleChange = (e) => {
+      if (typeof onChange === "function") {
+        if (name) {
+          onChange(e); // skickar hela eventet (formulär)
+        } else {
+          onChange(e.target.value); // används t.ex. i Historik-filter
+        }
+      }
+    };
+  
     return (
-      <select name={name} onChange={onChange} required>
-        <option value="">Välj roll</option>
-        {options.map((option, idx) => (
-          <option key={idx} value={option.value}>
-            {option.label}
-          </option>
-        ))}
+      <select
+        name={name}
+        className={variant === "filter" ? "filter-dropdown" : "form-dropdown"}
+        onChange={handleChange}
+        value={selected || ""}
+      >
+        <option value="">{placeholder}</option>
+        {options.map((option, idx) => {
+          const value = typeof option === "string" ? option : option.value;
+          const label = typeof option === "string" ? option : option.label;
+          return (
+            <option key={idx} value={value}>
+              {label}
+            </option>
+          );
+        })}
       </select>
     );
   }

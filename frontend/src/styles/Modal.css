@@ -137,39 +137,53 @@
     object-fit: contain;
 }
 
-/* PDF-visning */
+/* Förbättrad PDF-export – exakt layout vid canvas-rendering */
 .pdf-preview-content {
     padding: 2rem;
     background: white;
     border-radius: 12px;
     font-family: Arial, sans-serif;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.8;
     color: #1f2937;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     text-align: center;
-}
-.pdf-preview-content h3 {
+    word-break: break-word;
+    white-space: normal;
+    letter-spacing: 0.3px; /* ← förhindrar ihoptryckta bokstäver */
+    -webkit-font-smoothing: antialiased; /* smidigare rendering */
+  }
+  
+  .pdf-preview-content h3 {
     text-align: center;
     font-size: 1.8rem;
     margin-bottom: 2rem;
     color: #111827;
-}
-.pdf-preview-row {
+    letter-spacing: 0.5px;
+  }
+  
+  .pdf-preview-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
     font-size: 1rem;
     font-weight: 500;
-}
-.pdf-preview-row span:first-child {
+    gap: 10px; /* extra spacing mellan fält */
+  }
+  
+  .pdf-preview-row span:first-child {
     color: #374151;
     min-width: 180px;
     text-align: left;
-}
-.pdf-preview-row span:last-child {
+    word-break: break-word;
+  }
+  
+  .pdf-preview-row span:last-child {
     text-align: right;
     flex: 1;
-}
+    word-break: break-word;
+  }
+  
 .pdf-download-wrapper {
     display: flex;
     justify-content: flex-end;

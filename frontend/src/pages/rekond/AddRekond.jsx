@@ -48,6 +48,7 @@ function AddRekond() {
                     fields={rekondFields} 
                     onSubmit={handleFormSubmit}
                     enableImageUpload={true}
+                    backTo="/rekond"
                 />
             </main>
         </div>

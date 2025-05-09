@@ -3,6 +3,7 @@
 // Beskrivning: Används för att generera en bcrypt-hash av ett lösenord
 // ============================================================================
 
+/*
 const bcrypt = require("bcryptjs");
 
 const plaintextPassword = "Cardeal3341"; // Lösenord att hasha
@@ -18,3 +19,4 @@ bcrypt.hash(plaintextPassword, saltRounds, function (err, hash) {
   console.log("Genererad bcrypt-hash:");
   console.log(hash);
 });
+*/

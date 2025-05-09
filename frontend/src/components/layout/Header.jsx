@@ -16,12 +16,14 @@ function Header({
   onHistory,
   searchQuery,
   showBackButton,
-  backTo
+  backTo,
+  extraContent
 }) {
   return (
     <div className="component-header">
       <h1>{title}</h1>
       <div className="component-actions">
+        {extraContent}
         <SearchBar value={searchQuery || ""} onChange={onSearch} />
         {showBackButton && <BackButton to={backTo} />}
         {showAddButton && <AddButton onClick={onAdd} />}

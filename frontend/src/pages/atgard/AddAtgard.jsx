@@ -29,14 +29,14 @@ function AddAtgard() {
       .then((res) => res.json())
       .then((response) => {
         if (response.success) {
-          alert("Atgård tillagd!");
+          alert("Åtgärd tillagd!");
           navigate("/atgard");
         } else {
           alert("Fel: " + response.error);
         }
       })
       .catch((err) => {
-        console.error("Fel vid tilläggning av atgård:", err);
+        console.error("Fel vid tilläggning av åtgärd:", err);
       });
   };
 
@@ -45,10 +45,11 @@ function AddAtgard() {
       <Sidebar />
       <main className="create-page-wrapper">
         <CreateComponent
-          title="Lägg till Atgård"
+          title="Lägg till Åtgärd"
           fields={atgardFields}
           onSubmit={handleFormSubmit}
           enableImageUpload={false}
+          backTo="/atgard"
         />
       </main>
     </div>

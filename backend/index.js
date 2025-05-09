@@ -16,6 +16,8 @@ const pwrRoutes = require("./routes/pwrRoutes");
 const besiktningRoutes = require("./routes/besiktningRoutes");
 const korningRoutes = require("./routes/korningRoutes");
 const atgardRoutes = require("./routes/atgardRoutes");
+const kundregisterRoutes = require("./routes/kundregisterRoutes");
+const historikRoutes = require("./routes/historikRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5050;
@@ -37,6 +39,8 @@ app.use("/api/pwr", pwrRoutes);
 app.use("/api/besiktning", besiktningRoutes);
 app.use("/api/korning", korningRoutes);
 app.use("/api/atgard", atgardRoutes);
+app.use("/api/kundregister", kundregisterRoutes);
+app.use("/api/historik", historikRoutes);
 
 // Test-endpoint för att verifiera att servern fungerar
 app.get("/", (req, res) => {

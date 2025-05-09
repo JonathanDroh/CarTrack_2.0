@@ -44,6 +44,7 @@ function EditJobModal({
 
   // Identifiera job ID baserat på jobbtyp
   const jobId =
+    formData.kund_id ||
     formData.lackering_id ||
     formData.rekond_id ||
     formData.verkstad_id ||
@@ -51,6 +52,17 @@ function EditJobModal({
     formData.besiktning_id ||
     formData.korning_id ||
     formData.atgard_id;
+
+  // Identifiera jobtyp för PDF-titel
+  const jobType =
+    formData.lackering_id ? "Lackering" :
+    formData.rekond_id ? "Rekond" :
+    formData.verkstad_id ? "Verkstad" :
+    formData.pwr_id ? "PWR" :
+    formData.besiktning_id ? "Besiktning" :
+    formData.korning_id ? "Körning" :
+    formData.atgard_id ? "Åtgärd" :
+    "";
 
   // Spara uppdaterad data till API
   const handleSave = () => {
@@ -199,6 +211,7 @@ function EditJobModal({
           <PdfPreviewModal
             jobData={formData}
             fields={fields}
+            jobType={jobType}
             onClose={() => setShowPdfModal(false)}
           />
         )}

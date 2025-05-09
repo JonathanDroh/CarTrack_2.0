@@ -103,6 +103,21 @@
     display: flex;
     justify-content: center;
   }
+
+/* Dropdown för tabellfilter (t.ex. Historik) */
+.filter-dropdown {
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: white;
+    font-size: 16px;
+    min-width: 180px;
+    margin-right: 20px;
+    margin-top: 2px; /* jämna ut vertikal placering */
+  }
+  
+  
+  
   
   /* Responsivitet: tablets */
   @media (max-width: 1024px) {

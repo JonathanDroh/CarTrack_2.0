@@ -1,5 +1,5 @@
 const userModel = require("../models/userModel");
-const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 /**
  * Hämta alla användare
@@ -27,7 +27,10 @@ exports.resetPassword = async (req, res) => {
     }
 
     try {
-        const success = await userModel.updatePassword(email, newPassword);
+        // Hasha lösenordet med SHA256
+        const hashedPassword = crypto.createHash("sha256").update(newPassword).digest("hex");
+
+        const success = await userModel.updatePassword(email, hashedPassword);
 
         if (success) {
             res.json({ success: true, message: "Lösenordet har uppdaterats" });
@@ -56,7 +59,10 @@ exports.addUser = async (req, res) => {
             return res.status(400).json({ error: "En användare med denna e-post finns redan." });
         }
 
-        const success = await userModel.addUser(namn, email, losenord, roll);
+        // Hasha lösenordet med SHA256
+        const hashedPassword = crypto.createHash("sha256").update(losenord).digest("hex");
+
+        const success = await userModel.addUser(namn, email, hashedPassword, roll);
 
         if (success) {
             res.json({ success: true, message: "Anställd tillagd" });

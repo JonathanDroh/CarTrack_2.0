@@ -30,6 +30,11 @@ import KorningHistory from "./pages/korning/KorningHistory";
 import Atgard from "./pages/atgard/Atgard";
 import AddAtgard from "./pages/atgard/AddAtgard";
 import AtgardHistory from "./pages/atgard/AtgardHistory";
+import Kundregister from "./pages/kundregister/Kundregister";
+import AddKund from "./pages/kundregister/AddKund";
+import KundregisterHistory from "./pages/kundregister/KundregisterHistory";
+import Historik from "./pages/historik/Historik";
+
 
 // Komponent för att skydda routes baserat på inloggningsstatus och roll
 function ProtectedRoute({ element, role }) {
@@ -95,6 +100,15 @@ function App() {
             <Route path="/atgard" element={<ProtectedRoute element={<Atgard />} />} />
             <Route path="/add-atgard" element={<ProtectedRoute element={<AddAtgard />} />} />
             <Route path="/atgard-history" element={<ProtectedRoute element={<AtgardHistory />} />} />
+
+            {/* Kundregister */}
+            <Route path="/kundregister" element={<ProtectedRoute element={<Kundregister />} />} />
+            <Route path="/add-kund" element={<ProtectedRoute element={<AddKund />} />} />
+            <Route path="/kundregister-history" element={<ProtectedRoute element={<KundregisterHistory />} />} />
+
+            {/* Historik */}
+            <Route path="/historik" element={<Historik />} />
+
         </Routes>
     );
 }

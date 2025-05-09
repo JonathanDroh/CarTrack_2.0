@@ -13,7 +13,6 @@ import {
   FaRoad,
   FaTools,
   FaUser,
-  FaTrophy,
   FaHistory,
   FaCog
 } from "react-icons/fa";
@@ -43,7 +42,6 @@ function Sidebar() {
 
         <h1 className="sidebar-title">MIN SIDA</h1>
         <li><Link to="/kundregister"><FaUser /> Kundregister</Link></li>
-        <li><Link to="/tavling"><FaTrophy /> Tävling</Link></li>
 
         <h1 className="sidebar-title">ÖVRIGT</h1>
         <li><Link to="/historik"><FaHistory /> Historik</Link></li>

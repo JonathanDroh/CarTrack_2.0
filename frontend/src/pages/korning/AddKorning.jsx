@@ -49,6 +49,7 @@ function AddKorning() {
           fields={korningFields}
           onSubmit={handleFormSubmit}
           enableImageUpload={false}
+          backTo="/korning"
         />
       </main>
     </div>

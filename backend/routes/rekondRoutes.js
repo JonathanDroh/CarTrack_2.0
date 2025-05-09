@@ -1,13 +1,22 @@
+// routes/rekondRoutes.js
+// Beskrivning: Definierar API-endpoints för rekondjobb. Kopplar anrop till controller-metoder.
+
 const express = require("express");
 const router = express.Router();
 const RekondController = require("../controllers/rekondController");
 const uploadMiddleware = require("../middleware/uploadMiddleware");
 
 // ==========================
+// Rekond – Historik och statistik
+// ==========================
+router.get("/history", RekondController.getCompletedRekond);
+router.get("/stats", RekondController.getStats);
+
+// ==========================
 // Rekond – CRUD-routes
 // ==========================
 router.get("/", RekondController.getAllRekond);
-router.get("/rekond/:id", RekondController.getRekondById);
+router.get("/:id", RekondController.getRekondById); // <-- ändrat
 router.post("/add", RekondController.addRekond);
 router.patch("/:id", RekondController.updateRekond);
 router.delete("/:id", RekondController.deleteRekond);
@@ -17,12 +26,6 @@ router.delete("/:id", RekondController.deleteRekond);
 // ==========================
 router.patch("/send/:id", RekondController.markAsSent);
 router.patch("/complete/:id", RekondController.markAsCompleted);
-
-// ==========================
-// Rekond – Historik och statistik
-// ==========================
-router.get("/history", RekondController.getCompletedRekond);
-router.get("/stats", RekondController.getStats);
 
 // ==========================
 // Rekond – Bilduppladdning
