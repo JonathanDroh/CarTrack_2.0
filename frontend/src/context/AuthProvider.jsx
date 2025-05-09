@@ -29,7 +29,7 @@ const AuthProvider = ({ children }) => {
             return;
         }
 
-        fetch("http://localhost:5050/api/auth/verify", {
+        fetch(`${import.meta.env.VITE_API_URL}/api/auth/verify`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

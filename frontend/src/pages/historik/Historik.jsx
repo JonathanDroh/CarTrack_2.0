@@ -40,7 +40,7 @@ function Historik() {
   ];
 
   useEffect(() => {
-    fetch("http://localhost:5050/api/historik")
+    fetch(`${import.meta.env.VITE_API_URL}/api/historik`)
       .then((res) => res.json())
       .then((data) => setHistorik(data))
       .catch((err) => console.error("Fel vid hämtning av historik:", err));
@@ -89,7 +89,7 @@ function Historik() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5050/api/${endpoint}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/${endpoint}`);
       const data = await res.json();
       setSelectedRow(data);
       setSelectedFields(fields);

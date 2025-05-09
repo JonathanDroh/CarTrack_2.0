@@ -18,7 +18,7 @@ function BesiktningHistory() {
   }, []);
 
   const fetchHistory = () => {
-    fetch("http://localhost:5050/api/besiktning/history")
+    fetch(`${import.meta.env.VITE_API_URL}/api/besiktning/history`)
       .then((res) => res.json())
       .then((data) => setHistory(data))
       .catch((err) =>
@@ -29,7 +29,7 @@ function BesiktningHistory() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort denna besiktning?")) return;
 
-    fetch(`http://localhost:5050/api/besiktning/${rowData.besiktning_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/besiktning/${rowData.besiktning_id}`, {
       method: "DELETE"
     })
       .then((res) => res.json())

@@ -27,7 +27,7 @@ function Verkstad() {
 
   // Hämta alla aktiva verkstadsjobb från backend
   const fetchVerkstad = () => {
-    fetch("http://localhost:5050/api/verkstad")
+    fetch(`${import.meta.env.VITE_API_URL}/api/verkstad`)
       .then((res) => res.json())
       .then((data) => setVerkstadList(data))
       .catch((err) => console.error("Fel vid hämtning av verkstad:", err));
@@ -37,7 +37,7 @@ function Verkstad() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort detta verkstadsjobb?")) return;
 
-    fetch(`http://localhost:5050/api/verkstad/${rowData.verkstad_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/verkstad/${rowData.verkstad_id}`, {
       method: "DELETE"
     })
       .then((res) => res.json())
@@ -91,13 +91,13 @@ function Verkstad() {
                 <CompleteButton
                   jobId={rowData.verkstad_id}
                   onUpdate={fetchVerkstad}
-                  baseUrl="http://localhost:5050/api/verkstad"
+                  baseUrl={`${import.meta.env.VITE_API_URL}/api/verkstad`}
                 />
               ) : (
                 <SendButton
                   jobId={rowData.verkstad_id}
                   onUpdate={fetchVerkstad}
-                  baseUrl="http://localhost:5050/api/verkstad"
+                  baseUrl={`${import.meta.env.VITE_API_URL}/api/verkstad`}
                 />
               );
             }
@@ -114,8 +114,8 @@ function Verkstad() {
             title="Redigera Verkstad"
             jobData={selectedJob}
             fields={verkstadFields}
-            apiUrl="http://localhost:5050/api/verkstad"
-            uploadUrl="http://localhost:5050/api/verkstad"
+            apiUrl={`${import.meta.env.VITE_API_URL}/api/verkstad`}
+            uploadUrl={`${import.meta.env.VITE_API_URL}/api/verkstad`}
             enableImageUpload={true}
             onClose={() => setShowEditModal(false)}
             onSave={fetchVerkstad}

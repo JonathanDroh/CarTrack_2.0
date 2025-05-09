@@ -20,7 +20,7 @@ function KorningHistory() {
   }, []);
 
   const fetchHistory = () => {
-    fetch("http://localhost:5050/api/korning/history")
+    fetch(`${import.meta.env.VITE_API_URL}/api/korning/history`)
       .then((res) => res.json())
       .then((data) => setHistory(data))
       .catch((err) => console.error("Fel vid hämtning av körningshistorik:", err));
@@ -29,7 +29,7 @@ function KorningHistory() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort denna körning?")) return;
 
-    fetch(`http://localhost:5050/api/korning/${rowData.korning_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/korning/${rowData.korning_id}`, {
       method: "DELETE"
     })
       .then((res) => res.json())
@@ -89,13 +89,13 @@ function KorningHistory() {
                   <CompleteButton
                     jobId={rowData.korning_id}
                     onUpdate={fetchHistory}
-                    baseUrl="http://localhost:5050/api/korning"
+                    baseUrl={`${import.meta.env.VITE_API_URL}/api/korning`}
                   />
                 ) : (
                   <SendButton
                     jobId={rowData.korning_id}
                     onUpdate={fetchHistory}
-                    baseUrl="http://localhost:5050/api/korning"
+                    baseUrl={`${import.meta.env.VITE_API_URL}/api/korning`}
                   />
                 );
               }

@@ -26,7 +26,7 @@ function Besiktning() {
   }, []);
 
   const fetchBesiktningar = () => {
-    fetch("http://localhost:5050/api/besiktning")
+    fetch(`${import.meta.env.VITE_API_URL}/api/besiktning`)
       .then((res) => res.json())
       .then((data) => setBesiktningar(data))
       .catch((err) => console.error("Fel vid hämtning av besiktningar:", err));
@@ -35,7 +35,7 @@ function Besiktning() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort denna besiktning?")) return;
 
-    fetch(`http://localhost:5050/api/besiktning/${rowData.besiktning_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/besiktning/${rowData.besiktning_id}`, {
       method: "DELETE"
     })
       .then((res) => res.json())
@@ -85,13 +85,13 @@ function Besiktning() {
                   <CompleteButton
                     jobId={rowData.besiktning_id}
                     onUpdate={fetchBesiktningar}
-                    baseUrl="http://localhost:5050/api/besiktning"
+                    baseUrl={`${import.meta.env.VITE_API_URL}/api/besiktning`}
                   />
                 ) : (
                   <SendButton
                     jobId={rowData.besiktning_id}
                     onUpdate={fetchBesiktningar}
-                    baseUrl="http://localhost:5050/api/besiktning"
+                    baseUrl={`${import.meta.env.VITE_API_URL}/api/besiktning`}
                   />
                 );
               }
@@ -106,8 +106,8 @@ function Besiktning() {
             title="Redigera Besiktning"
             jobData={selectedJob}
             fields={besiktningFields}
-            apiUrl="http://localhost:5050/api/besiktning"
-            uploadUrl="http://localhost:5050/api/besiktning"
+            apiUrl={`${import.meta.env.VITE_API_URL}/api/besiktning`}
+            uploadUrl={`${import.meta.env.VITE_API_URL}/api/besiktning`}
             enableImageUpload={false}
             onClose={() => setShowEditModal(false)}
             onSave={fetchBesiktningar}

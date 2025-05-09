@@ -21,7 +21,7 @@ function AddBesiktning() {
       return;
     }
 
-    fetch("http://localhost:5050/api/besiktning/add", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/besiktning/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)

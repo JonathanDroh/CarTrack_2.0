@@ -19,7 +19,7 @@ function VerkstadHistory() {
 
   // Hämta alla färdiga verkstadsjobb från backend
   const fetchHistory = () => {
-    fetch("http://localhost:5050/api/verkstad/history")
+    fetch(`${import.meta.env.VITE_API_URL}/api/verkstad/history`)
       .then((res) => res.json())
       .then((data) => setHistory(data))
       .catch((err) => console.error("Fel vid hämtning av verkstadshistorik:", err));
@@ -29,7 +29,7 @@ function VerkstadHistory() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort detta verkstadsjobb?")) return;
 
-    fetch(`http://localhost:5050/api/verkstad/${rowData.verkstad_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/verkstad/${rowData.verkstad_id}`, {
       method: "DELETE"
     })
       .then((res) => res.json())

@@ -17,7 +17,7 @@ function ViewImageModal({ imageUrl, onClose }) {
                     Stäng
                 </button>
                 <img
-                    src={`http://localhost:5050/${imageUrl}`}
+                    src={`${import.meta.env.VITE_API_URL}/${imageUrl}`}
                     alt="Förhandsgranskning"
                     className="modal-image-preview"
                 />

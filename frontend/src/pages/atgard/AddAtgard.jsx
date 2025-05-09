@@ -21,7 +21,7 @@ function AddAtgard() {
       return;
     }
 
-    fetch("http://localhost:5050/api/atgard/add", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/atgard/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)

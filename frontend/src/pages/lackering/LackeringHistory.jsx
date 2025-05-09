@@ -20,7 +20,7 @@ function LackeringHistory() {
 
   // Hämta historik från backend
   const fetchHistory = () => {
-    fetch("http://localhost:5050/api/lackering/history")
+    fetch(`${import.meta.env.VITE_API_URL}/api/lackering/history`)
       .then((res) => res.json())
       .then((data) => setHistory(data))
       .catch((err) => console.error("Fel vid hämtning av historik:", err));
@@ -35,7 +35,9 @@ function LackeringHistory() {
 
     if (!window.confirm("Är du säker på att du vill ta bort denna lackering?")) return;
 
-    fetch(`http://localhost:5050/api/lackering/${rowData.lackering_id}`, { method: "DELETE" })
+    fetch(`${import.meta.env.VITE_API_URL}/api/lackering/${rowData.lackering_id}`, {
+      method: "DELETE"
+    })
       .then((res) => res.ok ? res.json() : Promise.reject(res))
       .then((data) => {
         if (data.success) {

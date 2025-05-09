@@ -26,7 +26,7 @@ function Korning() {
   }, []);
 
   const fetchKorningar = () => {
-    fetch("http://localhost:5050/api/korning")
+    fetch(`${import.meta.env.VITE_API_URL}/api/korning`)
       .then((res) => res.json())
       .then((data) => setKorningar(data))
       .catch((err) => console.error("Fel vid hämtning av körningar:", err));
@@ -35,7 +35,7 @@ function Korning() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort denna körning?")) return;
 
-    fetch(`http://localhost:5050/api/korning/${rowData.korning_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/korning/${rowData.korning_id}`, {
       method: "DELETE"
     })
       .then((res) => res.json())
@@ -93,13 +93,13 @@ function Korning() {
                   <CompleteButton
                     jobId={rowData.korning_id}
                     onUpdate={fetchKorningar}
-                    baseUrl="http://localhost:5050/api/korning"
+                    baseUrl={`${import.meta.env.VITE_API_URL}/api/korning`}
                   />
                 ) : (
                   <SendButton
                     jobId={rowData.korning_id}
                     onUpdate={fetchKorningar}
-                    baseUrl="http://localhost:5050/api/korning"
+                    baseUrl={`${import.meta.env.VITE_API_URL}/api/korning`}
                   />
                 );
               }
@@ -114,8 +114,8 @@ function Korning() {
             title="Redigera Körning"
             jobData={selectedJob}
             fields={korningFields}
-            apiUrl="http://localhost:5050/api/korning"
-            uploadUrl="http://localhost:5050/api/korning"
+            apiUrl={`${import.meta.env.VITE_API_URL}/api/korning`}
+            uploadUrl={`${import.meta.env.VITE_API_URL}/api/korning`}
             enableImageUpload={false}
             onClose={() => setShowEditModal(false)}
             onSave={fetchKorningar}

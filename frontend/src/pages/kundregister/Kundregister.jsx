@@ -27,7 +27,7 @@ function Kundregister() {
   }, []);
 
   const fetchKunder = () => {
-    fetch("http://localhost:5050/api/kundregister")
+    fetch(`${import.meta.env.VITE_API_URL}/api/kundregister`)
       .then((res) => res.json())
       .then((data) => setKunder(data))
       .catch((err) => console.error("Fel vid hämtning av kunder:", err));
@@ -35,7 +35,7 @@ function Kundregister() {
 
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort denna kund?")) return;
-    fetch(`http://localhost:5050/api/kundregister/${rowData.kund_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/kundregister/${rowData.kund_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -52,14 +52,13 @@ function Kundregister() {
   };
 
   const filtered = kunder
-  .filter((k) => !k.datum_t)
-  .filter((k) =>
-    (k.k_regnmr && k.k_regnmr.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    (k.i_regnmr && k.i_regnmr.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    (k.anvandarnamn && k.anvandarnamn.toLowerCase().includes(searchQuery.toLowerCase()))
-  )
-  .sort((a, b) => b.kund_id - a.kund_id);
-
+    .filter((k) => !k.datum_t)
+    .filter((k) =>
+      (k.k_regnmr && k.k_regnmr.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (k.i_regnmr && k.i_regnmr.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (k.anvandarnamn && k.anvandarnamn.toLowerCase().includes(searchQuery.toLowerCase()))
+    )
+    .sort((a, b) => b.kund_id - a.kund_id);
 
   return (
     <div className="page-container">
@@ -94,13 +93,13 @@ function Kundregister() {
                   <CompleteButton
                     jobId={rowData.kund_id}
                     onUpdate={fetchKunder}
-                    baseUrl="http://localhost:5050/api/kundregister"
+                    baseUrl={`${import.meta.env.VITE_API_URL}/api/kundregister`}
                   />
                 ) : (
                   <SendButton
                     jobId={rowData.kund_id}
                     onUpdate={fetchKunder}
-                    baseUrl="http://localhost:5050/api/kundregister"
+                    baseUrl={`${import.meta.env.VITE_API_URL}/api/kundregister`}
                   />
                 );
               }
@@ -115,8 +114,8 @@ function Kundregister() {
             title="Redigera Kund"
             jobData={selectedJob}
             fields={kundregisterFields}
-            apiUrl="http://localhost:5050/api/kundregister"
-            uploadUrl="http://localhost:5050/api/kundregister"
+            apiUrl={`${import.meta.env.VITE_API_URL}/api/kundregister`}
+            uploadUrl={`${import.meta.env.VITE_API_URL}/api/kundregister`}
             enableImageUpload={false}
             onClose={() => setShowEditModal(false)}
             onSave={fetchKunder}

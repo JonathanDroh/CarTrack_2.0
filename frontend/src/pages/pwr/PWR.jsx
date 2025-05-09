@@ -27,7 +27,7 @@ function PWR() {
   }, []);
 
   const fetchPWR = () => {
-    fetch("http://localhost:5050/api/pwr")
+    fetch(`${import.meta.env.VITE_API_URL}/api/pwr`)
       .then((res) => res.json())
       .then((data) => setPwrList(data))
       .catch((err) => console.error("Fel vid hämtning av PWR:", err));
@@ -37,7 +37,7 @@ function PWR() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort detta PWR-jobb?")) return;
 
-    fetch(`http://localhost:5050/api/pwr/${rowData.pwr_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/pwr/${rowData.pwr_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -86,13 +86,13 @@ function PWR() {
                 <CompleteButton
                   jobId={rowData.pwr_id}
                   onUpdate={fetchPWR}
-                  baseUrl="http://localhost:5050/api/pwr"
+                  baseUrl={`${import.meta.env.VITE_API_URL}/api/pwr`}
                 />
               ) : (
                 <SendButton
                   jobId={rowData.pwr_id}
                   onUpdate={fetchPWR}
-                  baseUrl="http://localhost:5050/api/pwr"
+                  baseUrl={`${import.meta.env.VITE_API_URL}/api/pwr`}
                 />
               );
             }
@@ -111,8 +111,8 @@ function PWR() {
             title="Redigera PWR"
             jobData={selectedJob}
             fields={pwrFields}
-            apiUrl="http://localhost:5050/api/pwr"
-            uploadUrl="http://localhost:5050/api/pwr"
+            apiUrl={`${import.meta.env.VITE_API_URL}/api/pwr`}
+            uploadUrl={`${import.meta.env.VITE_API_URL}/api/pwr`}
             enableImageUpload={true}
             onClose={() => setShowEditModal(false)}
             onSave={fetchPWR}

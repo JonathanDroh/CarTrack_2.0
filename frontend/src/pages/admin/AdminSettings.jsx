@@ -23,7 +23,7 @@ function AdminSettings() {
 
     // Hämta alla användare vid sidladdning
     useEffect(() => {
-        fetch("http://localhost:5050/api/users")
+        fetch(`${import.meta.env.VITE_API_URL}/api/users`)
             .then((res) => res.json())
             .then((data) => setUsers(data))
             .catch((err) => console.error("Fel vid hämtning av användare:", err));
@@ -46,7 +46,7 @@ function AdminSettings() {
     const handleConfirmDelete = () => {
         if (!selectedUser) return;
 
-        fetch(`http://localhost:5050/api/users/${selectedUser.email}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/users/${selectedUser.email}`, {
             method: "DELETE"
         })
             .then((res) => {

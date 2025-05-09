@@ -27,7 +27,7 @@ function Rekond() {
 
   // Funktion för att hämta rekond-jobb från API
   const fetchRekond = () => {
-    fetch("http://localhost:5050/api/rekond")
+    fetch(`${import.meta.env.VITE_API_URL}/api/rekond`)
       .then((res) => res.json())
       .then((data) => setRekondList(data))
       .catch((err) => console.error("Fel vid hämtning av rekond:", err));
@@ -36,7 +36,7 @@ function Rekond() {
   // Ta bort ett rekond-jobb
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort denna rekond?")) return;
-    fetch(`http://localhost:5050/api/rekond/${rowData.rekond_id}`, { method: "DELETE" })
+    fetch(`${import.meta.env.VITE_API_URL}/api/rekond/${rowData.rekond_id}`, { method: "DELETE" })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) fetchRekond();
@@ -89,13 +89,13 @@ function Rekond() {
                 <CompleteButton
                   jobId={row.rekond_id}
                   onUpdate={fetchRekond}
-                  baseUrl="http://localhost:5050/api/rekond"
+                  baseUrl={`${import.meta.env.VITE_API_URL}/api/rekond`}
                 />
               ) : (
                 <SendButton
                   jobId={row.rekond_id}
                   onUpdate={fetchRekond}
-                  baseUrl="http://localhost:5050/api/rekond"
+                  baseUrl={`${import.meta.env.VITE_API_URL}/api/rekond`}
                 />
               );
             }
@@ -112,8 +112,8 @@ function Rekond() {
             onClose={() => setShowEditModal(false)}
             onSave={fetchRekond}
             enableImageUpload={true}
-            apiUrl="http://localhost:5050/api/rekond"
-            uploadUrl="http://localhost:5050/api/rekond"
+            apiUrl={`${import.meta.env.VITE_API_URL}/api/rekond`}
+            uploadUrl={`${import.meta.env.VITE_API_URL}/api/rekond`}
           />
         )}
       </main>

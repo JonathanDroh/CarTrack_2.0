@@ -14,7 +14,7 @@ function AddImageButton({ onClick, imageUrl }) {
             {imageUrl && (
                 <div className="image-preview">
                     <img
-                        src={`http://localhost:5050/${imageUrl}`}
+                        src={`${import.meta.env.VITE_API_URL}/${imageUrl}`}
                         alt="Uppladdad bild"
                         className="preview-image"
                     />

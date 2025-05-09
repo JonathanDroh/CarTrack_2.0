@@ -13,7 +13,7 @@ function RekondHistory() {
 
   // Hämta rekondhistorik vid komponentens initiala rendering
   useEffect(() => {
-    fetch("http://localhost:5050/api/rekond/history")
+    fetch(`${import.meta.env.VITE_API_URL}/api/rekond/history`)
       .then((res) => res.json())
       .then((data) => setHistory(data))
       .catch((err) => console.error("Fel vid hämtning av rekondhistorik:", err));
@@ -23,7 +23,7 @@ function RekondHistory() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort denna rekond?")) return;
 
-    fetch(`http://localhost:5050/api/rekond/${rowData.rekond_id}`, { method: "DELETE" })
+    fetch(`${import.meta.env.VITE_API_URL}/api/rekond/${rowData.rekond_id}`, { method: "DELETE" })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

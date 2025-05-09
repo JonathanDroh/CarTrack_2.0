@@ -19,7 +19,7 @@ function PWRHistory() {
   }, []);
 
   const fetchHistory = () => {
-    fetch("http://localhost:5050/api/pwr/history")
+    fetch(`${import.meta.env.VITE_API_URL}/api/pwr/history`)
       .then((res) => res.json())
       .then((data) => setHistory(data))
       .catch((err) => console.error("Fel vid hämtning av PWR-historik:", err));
@@ -29,7 +29,7 @@ function PWRHistory() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort detta PWR-jobb?")) return;
 
-    fetch(`http://localhost:5050/api/pwr/${rowData.pwr_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/pwr/${rowData.pwr_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

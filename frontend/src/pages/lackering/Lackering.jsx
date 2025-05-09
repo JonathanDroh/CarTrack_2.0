@@ -28,7 +28,7 @@ function Lackering() {
 
   // Hämta alla lackeringar från backend
   const fetchLackeringar = () => {
-    fetch("http://localhost:5050/api/lackering")
+    fetch(`${import.meta.env.VITE_API_URL}/api/lackering`)
       .then((res) => res.json())
       .then((data) => setLackeringar(data))
       .catch((err) => console.error("Fel vid hämtning av lackeringar:", err));
@@ -38,7 +38,7 @@ function Lackering() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort denna lackering?")) return;
 
-    fetch(`http://localhost:5050/api/lackering/${rowData.lackering_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/lackering/${rowData.lackering_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

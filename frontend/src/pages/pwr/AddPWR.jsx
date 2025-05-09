@@ -21,7 +21,7 @@ function AddPWR() {
       return;
     }
 
-    fetch("http://localhost:5050/api/pwr/add", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/pwr/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

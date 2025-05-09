@@ -23,7 +23,7 @@ function KundregisterHistory() {
   }, []);
 
   const fetchHistory = () => {
-    fetch("http://localhost:5050/api/kundregister/history")
+    fetch(`${import.meta.env.VITE_API_URL}/api/kundregister/history`)
       .then((res) => res.json())
       .then((data) => setHistory(data))
       .catch((err) => console.error("Fel vid hämtning av kundhistorik:", err));
@@ -31,7 +31,7 @@ function KundregisterHistory() {
 
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort denna kundpost?")) return;
-    fetch(`http://localhost:5050/api/kundregister/${rowData.kund_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/kundregister/${rowData.kund_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -48,13 +48,12 @@ function KundregisterHistory() {
   };
 
   const filtered = history
-  .filter((k) =>
-    (k.k_regnmr && k.k_regnmr.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    (k.i_regnmr && k.i_regnmr.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    (k.anvandarnamn && k.anvandarnamn.toLowerCase().includes(searchQuery.toLowerCase()))
-  )
-  .sort((a, b) => b.kund_id - a.kund_id);
-
+    .filter((k) =>
+      (k.k_regnmr && k.k_regnmr.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (k.i_regnmr && k.i_regnmr.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (k.anvandarnamn && k.anvandarnamn.toLowerCase().includes(searchQuery.toLowerCase()))
+    )
+    .sort((a, b) => b.kund_id - a.kund_id);
 
   return (
     <div className="page-container">

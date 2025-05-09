@@ -21,7 +21,7 @@ function ResetPasswordModal({ userEmail, onClose, onSave }) {
             return;
         }
 
-        fetch("http://localhost:5050/api/users/reset-password", {
+        fetch(`${import.meta.env.VITE_API_URL}/api/users/reset-password`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email: userEmail, newPassword })

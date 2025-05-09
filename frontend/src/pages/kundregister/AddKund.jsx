@@ -29,7 +29,7 @@ function AddKund() {
       anvandare_id: user.anvandare_id,
     };
 
-    fetch("http://localhost:5050/api/kundregister/add", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/kundregister/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(cleanedData),

@@ -20,7 +20,7 @@ function Dashboard() {
 
   useEffect(() => {
     sections.forEach((section) => {
-      fetch(`http://localhost:5050/api/${section.key}/stats`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/${section.key}/stats`)
         .then((res) => res.json())
         .then((data) => {
           setStats((prev) => ({ ...prev, [section.key]: data }));

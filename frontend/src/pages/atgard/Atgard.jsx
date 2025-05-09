@@ -27,7 +27,7 @@ function Atgard() {
 
   // Hämta alla aktiva åtgärdsjobb
   const fetchAtgard = () => {
-    fetch("http://localhost:5050/api/atgard")
+    fetch(`${import.meta.env.VITE_API_URL}/api/atgard`)
       .then((res) => res.json())
       .then((data) => setAtgardList(data))
       .catch((err) => console.error("Fel vid hämtning av åtgärder:", err));
@@ -37,7 +37,7 @@ function Atgard() {
   const handleDeleteClick = (rowData) => {
     if (!window.confirm("Är du säker på att du vill ta bort detta åtgärdsjobb?")) return;
 
-    fetch(`http://localhost:5050/api/atgard/${rowData.atgard_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/atgard/${rowData.atgard_id}`, {
       method: "DELETE"
     })
       .then((res) => res.json())
@@ -90,13 +90,13 @@ function Atgard() {
                   <CompleteButton
                     jobId={rowData.atgard_id}
                     onUpdate={fetchAtgard}
-                    baseUrl="http://localhost:5050/api/atgard"
+                    baseUrl={`${import.meta.env.VITE_API_URL}/api/atgard`}
                   />
                 ) : (
                   <SendButton
                     jobId={rowData.atgard_id}
                     onUpdate={fetchAtgard}
-                    baseUrl="http://localhost:5050/api/atgard"
+                    baseUrl={`${import.meta.env.VITE_API_URL}/api/atgard`}
                   />
                 );
               }
@@ -111,8 +111,8 @@ function Atgard() {
             title="Redigera Åtgärd"
             jobData={selectedJob}
             fields={atgardFields}
-            apiUrl="http://localhost:5050/api/atgard"
-            uploadUrl="http://localhost:5050/api/atgard"
+            apiUrl={`${import.meta.env.VITE_API_URL}/api/atgard`}
+            uploadUrl={`${import.meta.env.VITE_API_URL}/api/atgard`}
             enableImageUpload={false}
             onClose={() => setShowEditModal(false)}
             onSave={fetchAtgard}
